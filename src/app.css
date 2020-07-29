@@ -1,0 +1,27 @@
+.total{
+  min-width:  600px;
+  max-width: 1200px;
+  min-height: 600px;
+  background-color: #F2F2F2;
+  margin:50px auto
+}
+.title{
+  min-width:500px;
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.list-area{
+  margin-top:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.list{
+  background-color: white;
+  width:600px;
+
+}
