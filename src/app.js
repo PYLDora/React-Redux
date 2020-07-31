@@ -1,27 +1,51 @@
 import React, { Component } from 'react';
 import { Input, Button, List } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons'
+import store from './store'
 import './app.css'
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      list: ['hello', 'world', 'React'],
-      inputValue: '2222'
-    }
+  constructor(props) {
+    super(props);
+    this.state = store.getState()
+    this.handleStoreChange = this.handleStoreChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleButtonClick = this.handleButtonClick.bind(this)
+    store.subscribe(this.handleStoreChange)
   }
-
+  handleStoreChange() {
+    this.setState(store.getState())
+  }
+  handleInputChange(e) {
+    const action = {
+      type: 'handle_input_change',
+      value: e.target.value
+    }
+    store.dispatch(action)
+  }
+  handleButtonClick() {
+    const action = {
+      type: 'handle_button_click'
+    }
+    store.dispatch(action)
+  }
+  handleItemClick(index) {
+    const action = {
+      type: 'handle_item_click',
+      index
+    }
+    store.dispatch(action)
+  }
   render() {
     return (
       <div>
         <div className={'total'}>
           <div className={'title'} >
             <div>
-              <Input style={{ width: 525 }} value={this.state.inputValue} />
+              <Input style={{ width: 525 }} value={this.state.inputValue} onChange={(e) => { this.handleInputChange(e) }} />
             </div>
             <div style={{ paddingLeft: 10 }}>
-              <Button type="primary" ><ArrowRightOutlined style={{ color: 'white' }} /></Button>
+              <Button type="primary" onClick={() => { this.handleButtonClick() }}><ArrowRightOutlined style={{ color: 'white' }} /></Button>
             </div>
 
           </div>
@@ -32,9 +56,9 @@ class App extends Component {
               size='large'
               split='true'
               dataSource={this.state.list}
-              renderItem={item => (
-                <List.Item>
-                  {item}
+              renderItem={(item, index) => (
+                <List.Item >
+                  <div onClick={() => { this.handleItemClick(index) }}> {item}</div>
                 </List.Item>
               )} />
           </div>
