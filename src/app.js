@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Input, Button, List } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons'
 import store from './store'
+import { inputChangeAction, buttonClickAction, itemClickAction } from './actionCreator'
 import './app.css'
 
 class App extends Component {
@@ -17,23 +18,15 @@ class App extends Component {
     this.setState(store.getState())
   }
   handleInputChange(e) {
-    const action = {
-      type: 'handle_input_change',
-      value: e.target.value
-    }
+    const action = inputChangeAction(e.target.value);
     store.dispatch(action)
   }
   handleButtonClick() {
-    const action = {
-      type: 'handle_button_click'
-    }
+    const action = buttonClickAction();
     store.dispatch(action)
   }
   handleItemClick(index) {
-    const action = {
-      type: 'handle_item_click',
-      index
-    }
+    const action = itemClickAction(index);
     store.dispatch(action)
   }
   render() {
