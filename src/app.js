@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import store from './store'
+import './app.css'
 import { Input, Button, List } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons'
-import store from './store'
-import { inputChangeAction, buttonClickAction, itemClickAction } from './actionCreator'
-import './app.css'
+import { inputChangeAction, buttonClickAction, itemClickAction, initData } from './actionCreator'
 
 class App extends Component {
   constructor(props) {
@@ -13,6 +13,11 @@ class App extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleButtonClick = this.handleButtonClick.bind(this)
     store.subscribe(this.handleStoreChange)
+  }
+  componentDidMount() {
+    const action = initData();
+    store.dispatch(action)
+
   }
   handleStoreChange() {
     this.setState(store.getState())
