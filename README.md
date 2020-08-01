@@ -1,1 +1,1 @@
-这里是没有任何中间件的Redux实现的小demo
+这里是中间件Redux-thunk和Redux实现的小demo
